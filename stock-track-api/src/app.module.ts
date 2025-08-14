@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
@@ -9,6 +10,19 @@ import { validate } from './config/validation';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test',
+      entities: [],
+      synchronize: true,
+      //  synchronize: false, //for production
+      // migrationsRun: true, //for production
+      // migrations: ['dist/migrations/*.js'] //for production
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
