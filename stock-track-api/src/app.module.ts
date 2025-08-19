@@ -7,6 +7,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { validate } from './config/validation';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -17,7 +20,7 @@ import { validate } from './config/validation';
       username: 'root',
       password: 'root',
       database: 'test',
-      entities: [],
+      entities: [User],
       synchronize: true,
       //  synchronize: false, //for production
       // migrationsRun: true, //for production
@@ -35,6 +38,8 @@ import { validate } from './config/validation';
         limit: 10, // 10 requests per minute
       },
     ]),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
